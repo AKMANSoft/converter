@@ -77,6 +77,7 @@ public class JsonParse extends Parser {
 		String key = "";
 		String value = "";
 		int indent = 0;
+		int arrayIndent = 0;
 		
 		try {
 			parser = factory.createParser(file);
@@ -89,21 +90,19 @@ public class JsonParse extends Parser {
 				
 				switch (token) {
 				case START_OBJECT:
-					indent++;
 					break;
 				case START_ARRAY:
+					break;
 				case END_ARRAY:
+					break;
 				case VALUE_NULL:
 				case VALUE_EMBEDDED_OBJECT:
 				case NOT_AVAILABLE:
 					break;
 				case END_OBJECT:
-					indent--;
-					if(indent == 0) {
 						progress(count.incrementAndGet(), total);
 						line(values);
 						values.clear();	
-					}
 					break;
 				case FIELD_NAME:
 					key = parser.getValueAsString();
